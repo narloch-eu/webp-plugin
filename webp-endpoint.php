@@ -2,8 +2,8 @@
 /*
 Plugin Name: webp endpoint
 Plugin URI: www.worzala.pl/wp/plugins/webp
-Description: JPG-to-WEBP  https://localhost/wp-json/convert-image/jpg-to-webp/sago/3717b-1.webp
-Version: 0.0.2
+Description: JPG-to-WEBP
+Version: 0.0.3
 Author: Pawel Worzala
 Author URI: www.worzala.pl
 Text Domain: we
@@ -55,6 +55,13 @@ function webp_get_endpoint_phrase($request) {
         imagedestroy($im);
 
     }
+
+
+    $seconds_to_cache = 3600*24*31;
+    $ts = gmdate("D, d M Y H:i:s", time() + $seconds_to_cache) . " GMT";
+    header("Expires: $ts");
+    header("Pragma: cache");
+    header("Cache-Control: max-age=$seconds_to_cache");
 
 
     header("Content-Type: image/webp");
