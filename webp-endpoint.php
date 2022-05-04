@@ -81,7 +81,7 @@ function webp_get_endpoint_phrase($request) {
 ///wp-json/convert-image/webp/
 function webp_register_example_routes() {
     
-    register_rest_route( 'convert-image', '/webp/(?P<url>.*)', array(
+    register_rest_route( 'images', '/webp/(?P<url>.*)', array(
         'methods'  => WP_REST_Server::READABLE,
         'callback' => 'webp_get_endpoint_phrase',
         'args' => [
@@ -101,22 +101,24 @@ add_action( 'rest_api_init', 'webp_register_example_routes' );
 
 function replaceUrlToWebp($url){
 
-    /*if(!is_string($url)){
-        return $url;
-    }
-
-    if(!strpos($url,'.jpg')){
+    /*if(is_array($url)&&(!is_string($url))){
         return $url;
     }*/
+
+    //if(!is_array($url)&&strpos($url,'.jpg')){
+        //return $url;
+    //}
 
     //https://sago-online.pl/app/uploads/2022/05/3865a-1-300x300.webp
     //https://sago-online.pl/app/uploads/2022/05/3865a-1-300x300.jpg
 
-    $url = str_replace('app/uploads/','wp-json/convert-image/webp/',$url);
-    $url = str_replace('wp-content/uploads/','wp-json/convert-image/webp/',$url);
+    $url = str_replace('app/uploads/','wp-json/images/webp/',$url);
+    $url = str_replace('wp-content/uploads/','wp-json/images/webp/',$url);
     return str_replace('.jpg', '.webp', $url);
 
     return $url;
+    //}
+    //return $url;
 }
 
 add_filter('wp_get_attachment_url', function($url) 
