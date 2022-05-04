@@ -65,7 +65,7 @@ function webp_get_endpoint_phrase($request) {
     }
 
 
-    $seconds_to_cache = 3600*24*31;
+    $seconds_to_cache = 3600*24*365;
     $ts = gmdate("D, d M Y H:i:s", time() + $seconds_to_cache) . " GMT";
     header("Expires: $ts");
     header("Pragma: cache");
