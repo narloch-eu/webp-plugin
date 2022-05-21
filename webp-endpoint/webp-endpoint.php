@@ -3,7 +3,7 @@
 Plugin Name: webp endpoint
 Plugin URI: http://narloch.eu/wordpress/plugins/webp-endpoint
 Description: JPG-to-WEBP
-Version: 0.0.7
+Version: 0.0.8
 Author: Narloch.eu - Strony internetowe dla firm
 Author URI: http://narloch.eu/
 Text Domain: we
@@ -117,12 +117,18 @@ function replaceUrlToWebp($url){
     //$webps = str_replace('.jpg','.webp',$url);
     $urls=$url;
     if(is_array($urls)){
-        foreach($urls as $key=>$url){
+        $newUrls=[];
+        foreach($urls as $url){
             $webp = str_replace('.jpg','.webp',$url);
-            if(file_exists($webp)){
-                $urls[key]=$webp;
+            $webp = str_replace('/app/uploads','/uploads',$url);
+            $dir=dirname(__FILE__."../");
+            if(file_exists($dir.'/'.$webp)){
+                $newUrls[]=$webp;
+            }else{
+                $newUrls[]=$url;
             }
         }
+        $urls=$newUrls;
     }
     //return str_replace('.jpg', '.webp', $url);
 
