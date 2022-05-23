@@ -3,7 +3,7 @@
 Plugin Name: webp endpoint
 Plugin URI: http://narloch.eu/wordpress/plugins/webp-endpoint
 Description: JPG-to-WEBP
-Version: 0.1.2
+Version: 0.1.3
 Author: Narloch.eu - Strony internetowe dla firm
 Author URI: http://narloch.eu/
 Text Domain: we
@@ -121,9 +121,9 @@ function replaceUrlToWebp($url){
     if(is_array($urls)){
         $newUrls=[];
         foreach($urls as $url){
-            //$url='https://sago-online.pl/app/uploads/2020/03/hala2.jpg';
+            $url='https://sago-online.pl/app/uploads/2020/03/hala2.jpg';
             $webp = str_replace('.jpg','.webp',$url);
-            $webp = str_replace('https://sago-online.pl/app/','../../',$webp);
+            $webp = str_replace('https://sago-online.pl/app/uploads/',wp_upload_dir().'/',$webp);
             //$webp = str_replace('https:','http:',$webp);
             //$dir=dirname(__FILE__."../");
             if(file_exists($webp)){
@@ -135,9 +135,9 @@ function replaceUrlToWebp($url){
         }
         $urls=$newUrls;
     }else{
-        //$url='https://sago-online.pl/app/uploads/2020/03/hala2.jpg';
+        $url='https://sago-online.pl/app/uploads/2020/03/hala2.jpg';
         $webp = str_replace('.jpg','.webp',$url);
-        $webp = str_replace('https://sago-online.pl/app/','../../',$webp);
+        $webp = str_replace('https://sago-online.pl/app/uploads/',wp_upload_dir().'/',$webp);
         if(file_exists($webp)){
             $urls=$webp;
         }
